@@ -1,1 +1,19 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HotelManagement" Class="MyDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DDOO\SQLEXPRESS;Initial Catalog=HotelManagement;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="HotelManagementConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.StatusRoomType" Member="StatusRoomTypes">
+    <Type Name="StatusRoomType">
+      <Column Name="IDStatus" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StatusName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsAvtive" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="StatusRoomType_RoomType" Member="RoomTypes" ThisKey="IDStatus" OtherKey="StatusRT" Type="RoomType" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoomType" Member="RoomTypes">
+    <Type Name="RoomType">
+      <Column Name="IDRoomType" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoomTypeName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="StatusRT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="StatusRoomType_RoomType" Member="StatusRoomType" ThisKey="StatusRT" OtherKey="IDStatus" Type="StatusRoomType" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
