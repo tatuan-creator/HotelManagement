@@ -123,6 +123,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ClusterController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PaymentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -318,6 +319,7 @@
     <Content Include="Areas\Admin\Views\RoomType\Update.cshtml" />
     <Content Include="Areas\Admin\Views\Cluster\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Cluster\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Payments\Index.cshtml" />
     <None Include="Models\MyData.dbml.layout">
       <DependentUpon>MyData.dbml</DependentUpon>
     </None>
