@@ -36,6 +36,18 @@ namespace HotelManagement.Models
     partial void InsertRoomType(RoomType instance);
     partial void UpdateRoomType(RoomType instance);
     partial void DeleteRoomType(RoomType instance);
+    partial void InsertRoom(Room instance);
+    partial void UpdateRoom(Room instance);
+    partial void DeleteRoom(Room instance);
+    partial void InsertRoomStatus(RoomStatus instance);
+    partial void UpdateRoomStatus(RoomStatus instance);
+    partial void DeleteRoomStatus(RoomStatus instance);
+    partial void InsertCluster(Cluster instance);
+    partial void UpdateCluster(Cluster instance);
+    partial void DeleteCluster(Cluster instance);
+    partial void InsertClusterStatus(ClusterStatus instance);
+    partial void UpdateClusterStatus(ClusterStatus instance);
+    partial void DeleteClusterStatus(ClusterStatus instance);
     #endregion
 		
 		public MyDataDataContext() : 
@@ -81,6 +93,38 @@ namespace HotelManagement.Models
 			get
 			{
 				return this.GetTable<RoomType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Room> Rooms
+		{
+			get
+			{
+				return this.GetTable<Room>();
+			}
+		}
+		
+		public System.Data.Linq.Table<RoomStatus> RoomStatus
+		{
+			get
+			{
+				return this.GetTable<RoomStatus>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Cluster> Clusters
+		{
+			get
+			{
+				return this.GetTable<Cluster>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ClusterStatus> ClusterStatus
+		{
+			get
+			{
+				return this.GetTable<ClusterStatus>();
 			}
 		}
 	}
@@ -235,6 +279,8 @@ namespace HotelManagement.Models
 		
 		private System.Nullable<int> _StatusRT;
 		
+		private EntitySet<Room> _Rooms;
+		
 		private EntityRef<StatusRoomType> _StatusRoomType;
 		
     #region Extensibility Method Definitions
@@ -251,6 +297,7 @@ namespace HotelManagement.Models
 		
 		public RoomType()
 		{
+			this._Rooms = new EntitySet<Room>(new Action<Room>(this.attach_Rooms), new Action<Room>(this.detach_Rooms));
 			this._StatusRoomType = default(EntityRef<StatusRoomType>);
 			OnCreated();
 		}
@@ -319,6 +366,19 @@ namespace HotelManagement.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoomType_Room", Storage="_Rooms", ThisKey="IDRoomType", OtherKey="RoomType")]
+		public EntitySet<Room> Rooms
+		{
+			get
+			{
+				return this._Rooms;
+			}
+			set
+			{
+				this._Rooms.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatusRoomType_RoomType", Storage="_StatusRoomType", ThisKey="StatusRT", OtherKey="IDStatus", IsForeignKey=true)]
 		public StatusRoomType StatusRoomType
 		{
@@ -371,6 +431,733 @@ namespace HotelManagement.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Rooms(Room entity)
+		{
+			this.SendPropertyChanging();
+			entity.RoomType1 = this;
+		}
+		
+		private void detach_Rooms(Room entity)
+		{
+			this.SendPropertyChanging();
+			entity.RoomType1 = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Room")]
+	public partial class Room : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDRoom;
+		
+		private string _RoomName;
+		
+		private System.Nullable<int> _StatusR;
+		
+		private System.Nullable<int> _RoomType;
+		
+		private EntityRef<RoomType> _RoomType1;
+		
+		private EntityRef<RoomStatus> _RoomStatus;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDRoomChanging(int value);
+    partial void OnIDRoomChanged();
+    partial void OnRoomNameChanging(string value);
+    partial void OnRoomNameChanged();
+    partial void OnStatusRChanging(System.Nullable<int> value);
+    partial void OnStatusRChanged();
+    partial void OnRoomTypeChanging(System.Nullable<int> value);
+    partial void OnRoomTypeChanged();
+    #endregion
+		
+		public Room()
+		{
+			this._RoomType1 = default(EntityRef<RoomType>);
+			this._RoomStatus = default(EntityRef<RoomStatus>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDRoom", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDRoom
+		{
+			get
+			{
+				return this._IDRoom;
+			}
+			set
+			{
+				if ((this._IDRoom != value))
+				{
+					this.OnIDRoomChanging(value);
+					this.SendPropertyChanging();
+					this._IDRoom = value;
+					this.SendPropertyChanged("IDRoom");
+					this.OnIDRoomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoomName", DbType="NVarChar(128)")]
+		public string RoomName
+		{
+			get
+			{
+				return this._RoomName;
+			}
+			set
+			{
+				if ((this._RoomName != value))
+				{
+					this.OnRoomNameChanging(value);
+					this.SendPropertyChanging();
+					this._RoomName = value;
+					this.SendPropertyChanged("RoomName");
+					this.OnRoomNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusR", DbType="Int")]
+		public System.Nullable<int> StatusR
+		{
+			get
+			{
+				return this._StatusR;
+			}
+			set
+			{
+				if ((this._StatusR != value))
+				{
+					if (this._RoomStatus.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStatusRChanging(value);
+					this.SendPropertyChanging();
+					this._StatusR = value;
+					this.SendPropertyChanged("StatusR");
+					this.OnStatusRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoomType", DbType="Int")]
+		public System.Nullable<int> RoomType
+		{
+			get
+			{
+				return this._RoomType;
+			}
+			set
+			{
+				if ((this._RoomType != value))
+				{
+					if (this._RoomType1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRoomTypeChanging(value);
+					this.SendPropertyChanging();
+					this._RoomType = value;
+					this.SendPropertyChanged("RoomType");
+					this.OnRoomTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoomType_Room", Storage="_RoomType1", ThisKey="RoomType", OtherKey="IDRoomType", IsForeignKey=true)]
+		public RoomType RoomType1
+		{
+			get
+			{
+				return this._RoomType1.Entity;
+			}
+			set
+			{
+				RoomType previousValue = this._RoomType1.Entity;
+				if (((previousValue != value) 
+							|| (this._RoomType1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RoomType1.Entity = null;
+						previousValue.Rooms.Remove(this);
+					}
+					this._RoomType1.Entity = value;
+					if ((value != null))
+					{
+						value.Rooms.Add(this);
+						this._RoomType = value.IDRoomType;
+					}
+					else
+					{
+						this._RoomType = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("RoomType1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoomStatus_Room", Storage="_RoomStatus", ThisKey="StatusR", OtherKey="IDStatus", IsForeignKey=true)]
+		public RoomStatus RoomStatus
+		{
+			get
+			{
+				return this._RoomStatus.Entity;
+			}
+			set
+			{
+				RoomStatus previousValue = this._RoomStatus.Entity;
+				if (((previousValue != value) 
+							|| (this._RoomStatus.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RoomStatus.Entity = null;
+						previousValue.Rooms.Remove(this);
+					}
+					this._RoomStatus.Entity = value;
+					if ((value != null))
+					{
+						value.Rooms.Add(this);
+						this._StatusR = value.IDStatus;
+					}
+					else
+					{
+						this._StatusR = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("RoomStatus");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RoomStatus")]
+	public partial class RoomStatus : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDStatus;
+		
+		private string _StatusName;
+		
+		private System.Nullable<int> _IsAvtive;
+		
+		private EntitySet<Room> _Rooms;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDStatusChanging(int value);
+    partial void OnIDStatusChanged();
+    partial void OnStatusNameChanging(string value);
+    partial void OnStatusNameChanged();
+    partial void OnIsAvtiveChanging(System.Nullable<int> value);
+    partial void OnIsAvtiveChanged();
+    #endregion
+		
+		public RoomStatus()
+		{
+			this._Rooms = new EntitySet<Room>(new Action<Room>(this.attach_Rooms), new Action<Room>(this.detach_Rooms));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDStatus", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IDStatus
+		{
+			get
+			{
+				return this._IDStatus;
+			}
+			set
+			{
+				if ((this._IDStatus != value))
+				{
+					this.OnIDStatusChanging(value);
+					this.SendPropertyChanging();
+					this._IDStatus = value;
+					this.SendPropertyChanged("IDStatus");
+					this.OnIDStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusName", DbType="NVarChar(128)")]
+		public string StatusName
+		{
+			get
+			{
+				return this._StatusName;
+			}
+			set
+			{
+				if ((this._StatusName != value))
+				{
+					this.OnStatusNameChanging(value);
+					this.SendPropertyChanging();
+					this._StatusName = value;
+					this.SendPropertyChanged("StatusName");
+					this.OnStatusNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvtive", DbType="Int")]
+		public System.Nullable<int> IsAvtive
+		{
+			get
+			{
+				return this._IsAvtive;
+			}
+			set
+			{
+				if ((this._IsAvtive != value))
+				{
+					this.OnIsAvtiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsAvtive = value;
+					this.SendPropertyChanged("IsAvtive");
+					this.OnIsAvtiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoomStatus_Room", Storage="_Rooms", ThisKey="IDStatus", OtherKey="StatusR")]
+		public EntitySet<Room> Rooms
+		{
+			get
+			{
+				return this._Rooms;
+			}
+			set
+			{
+				this._Rooms.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Rooms(Room entity)
+		{
+			this.SendPropertyChanging();
+			entity.RoomStatus = this;
+		}
+		
+		private void detach_Rooms(Room entity)
+		{
+			this.SendPropertyChanging();
+			entity.RoomStatus = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Cluster")]
+	public partial class Cluster : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _AddressCluster;
+		
+		private string _ManagementName;
+		
+		private string _ManagementPhone;
+		
+		private string _ManagementEmail;
+		
+		private System.Nullable<int> _ClusterS;
+		
+		private EntityRef<ClusterStatus> _ClusterStatus;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnAddressClusterChanging(string value);
+    partial void OnAddressClusterChanged();
+    partial void OnManagementNameChanging(string value);
+    partial void OnManagementNameChanged();
+    partial void OnManagementPhoneChanging(string value);
+    partial void OnManagementPhoneChanged();
+    partial void OnManagementEmailChanging(string value);
+    partial void OnManagementEmailChanged();
+    partial void OnClusterSChanging(System.Nullable<int> value);
+    partial void OnClusterSChanged();
+    #endregion
+		
+		public Cluster()
+		{
+			this._ClusterStatus = default(EntityRef<ClusterStatus>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressCluster", DbType="NVarChar(128)")]
+		public string AddressCluster
+		{
+			get
+			{
+				return this._AddressCluster;
+			}
+			set
+			{
+				if ((this._AddressCluster != value))
+				{
+					this.OnAddressClusterChanging(value);
+					this.SendPropertyChanging();
+					this._AddressCluster = value;
+					this.SendPropertyChanged("AddressCluster");
+					this.OnAddressClusterChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ManagementName", DbType="NVarChar(128)")]
+		public string ManagementName
+		{
+			get
+			{
+				return this._ManagementName;
+			}
+			set
+			{
+				if ((this._ManagementName != value))
+				{
+					this.OnManagementNameChanging(value);
+					this.SendPropertyChanging();
+					this._ManagementName = value;
+					this.SendPropertyChanged("ManagementName");
+					this.OnManagementNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ManagementPhone", DbType="NVarChar(128)")]
+		public string ManagementPhone
+		{
+			get
+			{
+				return this._ManagementPhone;
+			}
+			set
+			{
+				if ((this._ManagementPhone != value))
+				{
+					this.OnManagementPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._ManagementPhone = value;
+					this.SendPropertyChanged("ManagementPhone");
+					this.OnManagementPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ManagementEmail", DbType="NVarChar(128)")]
+		public string ManagementEmail
+		{
+			get
+			{
+				return this._ManagementEmail;
+			}
+			set
+			{
+				if ((this._ManagementEmail != value))
+				{
+					this.OnManagementEmailChanging(value);
+					this.SendPropertyChanging();
+					this._ManagementEmail = value;
+					this.SendPropertyChanged("ManagementEmail");
+					this.OnManagementEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClusterS", DbType="Int")]
+		public System.Nullable<int> ClusterS
+		{
+			get
+			{
+				return this._ClusterS;
+			}
+			set
+			{
+				if ((this._ClusterS != value))
+				{
+					if (this._ClusterStatus.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnClusterSChanging(value);
+					this.SendPropertyChanging();
+					this._ClusterS = value;
+					this.SendPropertyChanged("ClusterS");
+					this.OnClusterSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ClusterStatus_Cluster", Storage="_ClusterStatus", ThisKey="ClusterS", OtherKey="IDStatus", IsForeignKey=true)]
+		public ClusterStatus ClusterStatus
+		{
+			get
+			{
+				return this._ClusterStatus.Entity;
+			}
+			set
+			{
+				ClusterStatus previousValue = this._ClusterStatus.Entity;
+				if (((previousValue != value) 
+							|| (this._ClusterStatus.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ClusterStatus.Entity = null;
+						previousValue.Clusters.Remove(this);
+					}
+					this._ClusterStatus.Entity = value;
+					if ((value != null))
+					{
+						value.Clusters.Add(this);
+						this._ClusterS = value.IDStatus;
+					}
+					else
+					{
+						this._ClusterS = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("ClusterStatus");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ClusterStatus")]
+	public partial class ClusterStatus : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDStatus;
+		
+		private string _StatusName;
+		
+		private System.Nullable<int> _IsAvtive;
+		
+		private EntitySet<Cluster> _Clusters;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDStatusChanging(int value);
+    partial void OnIDStatusChanged();
+    partial void OnStatusNameChanging(string value);
+    partial void OnStatusNameChanged();
+    partial void OnIsAvtiveChanging(System.Nullable<int> value);
+    partial void OnIsAvtiveChanged();
+    #endregion
+		
+		public ClusterStatus()
+		{
+			this._Clusters = new EntitySet<Cluster>(new Action<Cluster>(this.attach_Clusters), new Action<Cluster>(this.detach_Clusters));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDStatus", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IDStatus
+		{
+			get
+			{
+				return this._IDStatus;
+			}
+			set
+			{
+				if ((this._IDStatus != value))
+				{
+					this.OnIDStatusChanging(value);
+					this.SendPropertyChanging();
+					this._IDStatus = value;
+					this.SendPropertyChanged("IDStatus");
+					this.OnIDStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusName", DbType="NVarChar(128)")]
+		public string StatusName
+		{
+			get
+			{
+				return this._StatusName;
+			}
+			set
+			{
+				if ((this._StatusName != value))
+				{
+					this.OnStatusNameChanging(value);
+					this.SendPropertyChanging();
+					this._StatusName = value;
+					this.SendPropertyChanged("StatusName");
+					this.OnStatusNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvtive", DbType="Int")]
+		public System.Nullable<int> IsAvtive
+		{
+			get
+			{
+				return this._IsAvtive;
+			}
+			set
+			{
+				if ((this._IsAvtive != value))
+				{
+					this.OnIsAvtiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsAvtive = value;
+					this.SendPropertyChanged("IsAvtive");
+					this.OnIsAvtiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ClusterStatus_Cluster", Storage="_Clusters", ThisKey="IDStatus", OtherKey="ClusterS")]
+		public EntitySet<Cluster> Clusters
+		{
+			get
+			{
+				return this._Clusters;
+			}
+			set
+			{
+				this._Clusters.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Clusters(Cluster entity)
+		{
+			this.SendPropertyChanging();
+			entity.ClusterStatus = this;
+		}
+		
+		private void detach_Clusters(Cluster entity)
+		{
+			this.SendPropertyChanging();
+			entity.ClusterStatus = null;
 		}
 	}
 }

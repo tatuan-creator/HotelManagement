@@ -13,7 +13,45 @@
       <Column Name="IDRoomType" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="RoomTypeName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="StatusRT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="RoomType_Room" Member="Rooms" ThisKey="IDRoomType" OtherKey="RoomType" Type="Room" />
       <Association Name="StatusRoomType_RoomType" Member="StatusRoomType" ThisKey="StatusRT" OtherKey="IDStatus" Type="StatusRoomType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Room" Member="Rooms">
+    <Type Name="Room">
+      <Column Name="IDRoom" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoomName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="StatusR" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoomType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="RoomType_Room" Member="RoomType1" ThisKey="RoomType" OtherKey="IDRoomType" Type="RoomType" IsForeignKey="true" />
+      <Association Name="RoomStatus_Room" Member="RoomStatus" ThisKey="StatusR" OtherKey="IDStatus" Type="RoomStatus" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoomStatus" Member="RoomStatus">
+    <Type Name="RoomStatus">
+      <Column Name="IDStatus" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StatusName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsAvtive" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="RoomStatus_Room" Member="Rooms" ThisKey="IDStatus" OtherKey="StatusR" Type="Room" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cluster" Member="Clusters">
+    <Type Name="Cluster">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AddressCluster" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ManagementName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ManagementPhone" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ManagementEmail" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ClusterS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ClusterStatus_Cluster" Member="ClusterStatus" ThisKey="ClusterS" OtherKey="IDStatus" Type="ClusterStatus" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ClusterStatus" Member="ClusterStatus">
+    <Type Name="ClusterStatus">
+      <Column Name="IDStatus" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StatusName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsAvtive" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ClusterStatus_Cluster" Member="Clusters" ThisKey="IDStatus" OtherKey="ClusterS" Type="Cluster" />
     </Type>
   </Table>
 </Database>

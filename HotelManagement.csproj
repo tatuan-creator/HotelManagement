@@ -122,6 +122,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ClusterController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -143,6 +145,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\logo.png" />
     <Content Include="Public\assetsCustomer\css\bootstrap.min.css" />
     <Content Include="Public\assetsCustomer\css\elegant-icons.css" />
     <Content Include="Public\assetsCustomer\css\font-awesome.min.css" />
@@ -313,6 +316,8 @@
     <Content Include="Areas\Admin\Views\RoomType\Index.cshtml" />
     <Content Include="Areas\Admin\Views\RoomType\Create.cshtml" />
     <Content Include="Areas\Admin\Views\RoomType\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Cluster\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Cluster\Create.cshtml" />
     <None Include="Models\MyData.dbml.layout">
       <DependentUpon>MyData.dbml</DependentUpon>
     </None>
@@ -383,6 +388,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Room\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
