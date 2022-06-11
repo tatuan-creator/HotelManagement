@@ -1,5 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HotelManagement" Class="MyDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=DDOO\SQLEXPRESS;Initial Catalog=HotelManagement;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="HotelManagementConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Bill" Member="Bills">
+    <Type Name="Bill">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenancyRoom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoomCharge" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="InitPower" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EndPower" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PowerUnitPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="InitWater" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EndWater" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="WaterUnitPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Surcharge" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Desubcribe" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BillS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaymentsS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="BillStatus_Bill" Member="BillStatus" ThisKey="BillS" OtherKey="IDStatus" Type="BillStatus" IsForeignKey="true" />
+      <Association Name="Payment_Bill" Member="Payment" ThisKey="PaymentsS" OtherKey="ID" Type="Payment" IsForeignKey="true" />
+      <Association Name="Tenancy_Bill" Member="Tenancy" ThisKey="TenancyRoom" OtherKey="ID" Type="Tenancy" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TenancyStatus" Member="TenancyStatus">
+    <Type Name="TenancyStatus">
+      <Column Name="IDStatus" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StatusName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsAvtive" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="TenancyStatus_Tenancy" Member="Tenancies" ThisKey="IDStatus" OtherKey="TenancyS" Type="Tenancy" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BillStatus" Member="BillStatus">
+    <Type Name="BillStatus">
+      <Column Name="IDStatus" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StatusName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsAvtive" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="BillStatus_Bill" Member="Bills" ThisKey="IDStatus" OtherKey="BillS" Type="Bill" />
+    </Type>
+  </Table>
   <Table Name="dbo.Cluster" Member="Clusters">
     <Type Name="Cluster">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -10,14 +47,6 @@
       <Column Name="ClusterS" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Cluster_Room" Member="Rooms" ThisKey="ID" OtherKey="Cluster_ID" Type="Room" />
       <Association Name="ClusterStatus_Cluster" Member="ClusterStatus" ThisKey="ClusterS" OtherKey="IDStatus" Type="ClusterStatus" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.StatusRoomType" Member="StatusRoomTypes">
-    <Type Name="StatusRoomType">
-      <Column Name="IDStatus" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="StatusName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="IsAvtive" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="StatusRoomType_RoomType" Member="RoomTypes" ThisKey="IDStatus" OtherKey="StatusRT" Type="RoomType" />
     </Type>
   </Table>
   <Table Name="dbo.ClusterStatus" Member="ClusterStatus">
@@ -35,6 +64,8 @@
       <Column Name="Phone" Type="System.String" DbType="Char(20)" CanBeNull="true" />
       <Column Name="email" Type="System.String" DbType="Char(50)" CanBeNull="true" />
       <Column Name="CustomerS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Association Name="Customer_Tenancy" Member="Tenancies" ThisKey="ID" OtherKey="CustomerID" Type="Tenancy" />
       <Association Name="CustomerStatus_Customer" Member="CustomerStatus" ThisKey="CustomerS" OtherKey="IDStatus" Type="CustomerStatus" IsForeignKey="true" />
     </Type>
   </Table>
@@ -46,11 +77,20 @@
       <Association Name="CustomerStatus_Customer" Member="Customers" ThisKey="IDStatus" OtherKey="CustomerS" Type="Customer" />
     </Type>
   </Table>
+  <Table Name="dbo.Images" Member="Images">
+    <Type Name="Image">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SourceRoomImages" Type="System.String" DbType="Char(4000)" CanBeNull="true" />
+      <Column Name="IDRoom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Room_Image" Member="Room" ThisKey="IDRoom" OtherKey="IDRoom" Type="Room" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Payments" Member="Payments">
     <Type Name="Payment">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="PaymentsName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="PaymentS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Payment_Bill" Member="Bills" ThisKey="ID" OtherKey="PaymentsS" Type="Bill" />
       <Association Name="PaymentsStatus_Payment" Member="PaymentsStatus" ThisKey="PaymentS" OtherKey="IDStatus" Type="PaymentsStatus" IsForeignKey="true" />
     </Type>
   </Table>
@@ -69,6 +109,12 @@
       <Column Name="StatusR" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="RoomType_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Cluster_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Area" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Describe" Type="System.String" DbType="NChar(4000)" CanBeNull="true" />
+      <Association Name="Room_Image" Member="Images" ThisKey="IDRoom" OtherKey="IDRoom" Type="Image" />
+      <Association Name="Room_Tenancy" Member="Tenancies" ThisKey="IDRoom" OtherKey="TenancyRoom" Type="Tenancy" />
       <Association Name="Cluster_Room" Member="Cluster" ThisKey="Cluster_ID" OtherKey="ID" Type="Cluster" IsForeignKey="true" />
       <Association Name="RoomStatus_Room" Member="RoomStatus" ThisKey="StatusR" OtherKey="IDStatus" Type="RoomStatus" IsForeignKey="true" />
       <Association Name="RoomType_Room" Member="RoomType" ThisKey="RoomType_ID" OtherKey="IDRoomType" Type="RoomType" IsForeignKey="true" />
@@ -89,6 +135,30 @@
       <Column Name="StatusRT" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="RoomType_Room" Member="Rooms" ThisKey="IDRoomType" OtherKey="RoomType_ID" Type="Room" />
       <Association Name="StatusRoomType_RoomType" Member="StatusRoomType" ThisKey="StatusRT" OtherKey="IDStatus" Type="StatusRoomType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StatusRoomType" Member="StatusRoomTypes">
+    <Type Name="StatusRoomType">
+      <Column Name="IDStatus" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StatusName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsAvtive" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="StatusRoomType_RoomType" Member="RoomTypes" ThisKey="IDStatus" OtherKey="StatusRT" Type="RoomType" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tenancy" Member="Tenancies">
+    <Type Name="Tenancy">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenancyRoom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Deposit" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TenancyDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="CustomerID" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="TimeStart" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TimeEnd" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TenancyS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Tenancy_Bill" Member="Bills" ThisKey="ID" OtherKey="TenancyRoom" Type="Bill" />
+      <Association Name="Customer_Tenancy" Member="Customer" ThisKey="CustomerID" OtherKey="ID" Type="Customer" IsForeignKey="true" />
+      <Association Name="Room_Tenancy" Member="Room" ThisKey="TenancyRoom" OtherKey="IDRoom" Type="Room" IsForeignKey="true" />
+      <Association Name="TenancyStatus_Tenancy" Member="TenancyStatus" ThisKey="TenancyS" OtherKey="IDStatus" Type="TenancyStatus" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

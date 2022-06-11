@@ -30,12 +30,18 @@ namespace HotelManagement.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertBill(Bill instance);
+    partial void UpdateBill(Bill instance);
+    partial void DeleteBill(Bill instance);
+    partial void InsertTenancyStatus(TenancyStatus instance);
+    partial void UpdateTenancyStatus(TenancyStatus instance);
+    partial void DeleteTenancyStatus(TenancyStatus instance);
+    partial void InsertBillStatus(BillStatus instance);
+    partial void UpdateBillStatus(BillStatus instance);
+    partial void DeleteBillStatus(BillStatus instance);
     partial void InsertCluster(Cluster instance);
     partial void UpdateCluster(Cluster instance);
     partial void DeleteCluster(Cluster instance);
-    partial void InsertStatusRoomType(StatusRoomType instance);
-    partial void UpdateStatusRoomType(StatusRoomType instance);
-    partial void DeleteStatusRoomType(StatusRoomType instance);
     partial void InsertClusterStatus(ClusterStatus instance);
     partial void UpdateClusterStatus(ClusterStatus instance);
     partial void DeleteClusterStatus(ClusterStatus instance);
@@ -45,6 +51,9 @@ namespace HotelManagement.Models
     partial void InsertCustomerStatus(CustomerStatus instance);
     partial void UpdateCustomerStatus(CustomerStatus instance);
     partial void DeleteCustomerStatus(CustomerStatus instance);
+    partial void InsertImage(Image instance);
+    partial void UpdateImage(Image instance);
+    partial void DeleteImage(Image instance);
     partial void InsertPayment(Payment instance);
     partial void UpdatePayment(Payment instance);
     partial void DeletePayment(Payment instance);
@@ -60,6 +69,12 @@ namespace HotelManagement.Models
     partial void InsertRoomType(RoomType instance);
     partial void UpdateRoomType(RoomType instance);
     partial void DeleteRoomType(RoomType instance);
+    partial void InsertStatusRoomType(StatusRoomType instance);
+    partial void UpdateStatusRoomType(StatusRoomType instance);
+    partial void DeleteStatusRoomType(StatusRoomType instance);
+    partial void InsertTenancy(Tenancy instance);
+    partial void UpdateTenancy(Tenancy instance);
+    partial void DeleteTenancy(Tenancy instance);
     #endregion
 		
 		public MyDataDataContext() : 
@@ -92,19 +107,35 @@ namespace HotelManagement.Models
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<Bill> Bills
+		{
+			get
+			{
+				return this.GetTable<Bill>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TenancyStatus> TenancyStatus
+		{
+			get
+			{
+				return this.GetTable<TenancyStatus>();
+			}
+		}
+		
+		public System.Data.Linq.Table<BillStatus> BillStatus
+		{
+			get
+			{
+				return this.GetTable<BillStatus>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Cluster> Clusters
 		{
 			get
 			{
 				return this.GetTable<Cluster>();
-			}
-		}
-		
-		public System.Data.Linq.Table<StatusRoomType> StatusRoomTypes
-		{
-			get
-			{
-				return this.GetTable<StatusRoomType>();
 			}
 		}
 		
@@ -129,6 +160,14 @@ namespace HotelManagement.Models
 			get
 			{
 				return this.GetTable<CustomerStatus>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Image> Images
+		{
+			get
+			{
+				return this.GetTable<Image>();
 			}
 		}
 		
@@ -170,6 +209,795 @@ namespace HotelManagement.Models
 			{
 				return this.GetTable<RoomType>();
 			}
+		}
+		
+		public System.Data.Linq.Table<StatusRoomType> StatusRoomTypes
+		{
+			get
+			{
+				return this.GetTable<StatusRoomType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Tenancy> Tenancies
+		{
+			get
+			{
+				return this.GetTable<Tenancy>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Bill")]
+	public partial class Bill : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _TenancyRoom;
+		
+		private System.Nullable<double> _RoomCharge;
+		
+		private System.Nullable<double> _InitPower;
+		
+		private System.Nullable<double> _EndPower;
+		
+		private System.Nullable<double> _PowerUnitPrice;
+		
+		private System.Nullable<double> _InitWater;
+		
+		private System.Nullable<double> _EndWater;
+		
+		private System.Nullable<double> _WaterUnitPrice;
+		
+		private System.Nullable<double> _Surcharge;
+		
+		private string _Desubcribe;
+		
+		private System.Nullable<double> _Total;
+		
+		private System.Nullable<int> _BillS;
+		
+		private System.Nullable<int> _PaymentsS;
+		
+		private EntityRef<BillStatus> _BillStatus;
+		
+		private EntityRef<Payment> _Payment;
+		
+		private EntityRef<Tenancy> _Tenancy;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnTenancyRoomChanging(System.Nullable<int> value);
+    partial void OnTenancyRoomChanged();
+    partial void OnRoomChargeChanging(System.Nullable<double> value);
+    partial void OnRoomChargeChanged();
+    partial void OnInitPowerChanging(System.Nullable<double> value);
+    partial void OnInitPowerChanged();
+    partial void OnEndPowerChanging(System.Nullable<double> value);
+    partial void OnEndPowerChanged();
+    partial void OnPowerUnitPriceChanging(System.Nullable<double> value);
+    partial void OnPowerUnitPriceChanged();
+    partial void OnInitWaterChanging(System.Nullable<double> value);
+    partial void OnInitWaterChanged();
+    partial void OnEndWaterChanging(System.Nullable<double> value);
+    partial void OnEndWaterChanged();
+    partial void OnWaterUnitPriceChanging(System.Nullable<double> value);
+    partial void OnWaterUnitPriceChanged();
+    partial void OnSurchargeChanging(System.Nullable<double> value);
+    partial void OnSurchargeChanged();
+    partial void OnDesubcribeChanging(string value);
+    partial void OnDesubcribeChanged();
+    partial void OnTotalChanging(System.Nullable<double> value);
+    partial void OnTotalChanged();
+    partial void OnBillSChanging(System.Nullable<int> value);
+    partial void OnBillSChanged();
+    partial void OnPaymentsSChanging(System.Nullable<int> value);
+    partial void OnPaymentsSChanged();
+    #endregion
+		
+		public Bill()
+		{
+			this._BillStatus = default(EntityRef<BillStatus>);
+			this._Payment = default(EntityRef<Payment>);
+			this._Tenancy = default(EntityRef<Tenancy>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenancyRoom", DbType="Int")]
+		public System.Nullable<int> TenancyRoom
+		{
+			get
+			{
+				return this._TenancyRoom;
+			}
+			set
+			{
+				if ((this._TenancyRoom != value))
+				{
+					if (this._Tenancy.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTenancyRoomChanging(value);
+					this.SendPropertyChanging();
+					this._TenancyRoom = value;
+					this.SendPropertyChanged("TenancyRoom");
+					this.OnTenancyRoomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoomCharge", DbType="Float")]
+		public System.Nullable<double> RoomCharge
+		{
+			get
+			{
+				return this._RoomCharge;
+			}
+			set
+			{
+				if ((this._RoomCharge != value))
+				{
+					this.OnRoomChargeChanging(value);
+					this.SendPropertyChanging();
+					this._RoomCharge = value;
+					this.SendPropertyChanged("RoomCharge");
+					this.OnRoomChargeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InitPower", DbType="Float")]
+		public System.Nullable<double> InitPower
+		{
+			get
+			{
+				return this._InitPower;
+			}
+			set
+			{
+				if ((this._InitPower != value))
+				{
+					this.OnInitPowerChanging(value);
+					this.SendPropertyChanging();
+					this._InitPower = value;
+					this.SendPropertyChanged("InitPower");
+					this.OnInitPowerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndPower", DbType="Float")]
+		public System.Nullable<double> EndPower
+		{
+			get
+			{
+				return this._EndPower;
+			}
+			set
+			{
+				if ((this._EndPower != value))
+				{
+					this.OnEndPowerChanging(value);
+					this.SendPropertyChanging();
+					this._EndPower = value;
+					this.SendPropertyChanged("EndPower");
+					this.OnEndPowerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PowerUnitPrice", DbType="Float")]
+		public System.Nullable<double> PowerUnitPrice
+		{
+			get
+			{
+				return this._PowerUnitPrice;
+			}
+			set
+			{
+				if ((this._PowerUnitPrice != value))
+				{
+					this.OnPowerUnitPriceChanging(value);
+					this.SendPropertyChanging();
+					this._PowerUnitPrice = value;
+					this.SendPropertyChanged("PowerUnitPrice");
+					this.OnPowerUnitPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InitWater", DbType="Float")]
+		public System.Nullable<double> InitWater
+		{
+			get
+			{
+				return this._InitWater;
+			}
+			set
+			{
+				if ((this._InitWater != value))
+				{
+					this.OnInitWaterChanging(value);
+					this.SendPropertyChanging();
+					this._InitWater = value;
+					this.SendPropertyChanged("InitWater");
+					this.OnInitWaterChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndWater", DbType="Float")]
+		public System.Nullable<double> EndWater
+		{
+			get
+			{
+				return this._EndWater;
+			}
+			set
+			{
+				if ((this._EndWater != value))
+				{
+					this.OnEndWaterChanging(value);
+					this.SendPropertyChanging();
+					this._EndWater = value;
+					this.SendPropertyChanged("EndWater");
+					this.OnEndWaterChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WaterUnitPrice", DbType="Float")]
+		public System.Nullable<double> WaterUnitPrice
+		{
+			get
+			{
+				return this._WaterUnitPrice;
+			}
+			set
+			{
+				if ((this._WaterUnitPrice != value))
+				{
+					this.OnWaterUnitPriceChanging(value);
+					this.SendPropertyChanging();
+					this._WaterUnitPrice = value;
+					this.SendPropertyChanged("WaterUnitPrice");
+					this.OnWaterUnitPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surcharge", DbType="Float")]
+		public System.Nullable<double> Surcharge
+		{
+			get
+			{
+				return this._Surcharge;
+			}
+			set
+			{
+				if ((this._Surcharge != value))
+				{
+					this.OnSurchargeChanging(value);
+					this.SendPropertyChanging();
+					this._Surcharge = value;
+					this.SendPropertyChanged("Surcharge");
+					this.OnSurchargeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Desubcribe", DbType="NVarChar(200)")]
+		public string Desubcribe
+		{
+			get
+			{
+				return this._Desubcribe;
+			}
+			set
+			{
+				if ((this._Desubcribe != value))
+				{
+					this.OnDesubcribeChanging(value);
+					this.SendPropertyChanging();
+					this._Desubcribe = value;
+					this.SendPropertyChanged("Desubcribe");
+					this.OnDesubcribeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Float")]
+		public System.Nullable<double> Total
+		{
+			get
+			{
+				return this._Total;
+			}
+			set
+			{
+				if ((this._Total != value))
+				{
+					this.OnTotalChanging(value);
+					this.SendPropertyChanging();
+					this._Total = value;
+					this.SendPropertyChanged("Total");
+					this.OnTotalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillS", DbType="Int")]
+		public System.Nullable<int> BillS
+		{
+			get
+			{
+				return this._BillS;
+			}
+			set
+			{
+				if ((this._BillS != value))
+				{
+					if (this._BillStatus.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBillSChanging(value);
+					this.SendPropertyChanging();
+					this._BillS = value;
+					this.SendPropertyChanged("BillS");
+					this.OnBillSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaymentsS", DbType="Int")]
+		public System.Nullable<int> PaymentsS
+		{
+			get
+			{
+				return this._PaymentsS;
+			}
+			set
+			{
+				if ((this._PaymentsS != value))
+				{
+					if (this._Payment.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPaymentsSChanging(value);
+					this.SendPropertyChanging();
+					this._PaymentsS = value;
+					this.SendPropertyChanged("PaymentsS");
+					this.OnPaymentsSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BillStatus_Bill", Storage="_BillStatus", ThisKey="BillS", OtherKey="IDStatus", IsForeignKey=true)]
+		public BillStatus BillStatus
+		{
+			get
+			{
+				return this._BillStatus.Entity;
+			}
+			set
+			{
+				BillStatus previousValue = this._BillStatus.Entity;
+				if (((previousValue != value) 
+							|| (this._BillStatus.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BillStatus.Entity = null;
+						previousValue.Bills.Remove(this);
+					}
+					this._BillStatus.Entity = value;
+					if ((value != null))
+					{
+						value.Bills.Add(this);
+						this._BillS = value.IDStatus;
+					}
+					else
+					{
+						this._BillS = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("BillStatus");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Payment_Bill", Storage="_Payment", ThisKey="PaymentsS", OtherKey="ID", IsForeignKey=true)]
+		public Payment Payment
+		{
+			get
+			{
+				return this._Payment.Entity;
+			}
+			set
+			{
+				Payment previousValue = this._Payment.Entity;
+				if (((previousValue != value) 
+							|| (this._Payment.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Payment.Entity = null;
+						previousValue.Bills.Remove(this);
+					}
+					this._Payment.Entity = value;
+					if ((value != null))
+					{
+						value.Bills.Add(this);
+						this._PaymentsS = value.ID;
+					}
+					else
+					{
+						this._PaymentsS = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Payment");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tenancy_Bill", Storage="_Tenancy", ThisKey="TenancyRoom", OtherKey="ID", IsForeignKey=true)]
+		public Tenancy Tenancy
+		{
+			get
+			{
+				return this._Tenancy.Entity;
+			}
+			set
+			{
+				Tenancy previousValue = this._Tenancy.Entity;
+				if (((previousValue != value) 
+							|| (this._Tenancy.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tenancy.Entity = null;
+						previousValue.Bills.Remove(this);
+					}
+					this._Tenancy.Entity = value;
+					if ((value != null))
+					{
+						value.Bills.Add(this);
+						this._TenancyRoom = value.ID;
+					}
+					else
+					{
+						this._TenancyRoom = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Tenancy");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TenancyStatus")]
+	public partial class TenancyStatus : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDStatus;
+		
+		private string _StatusName;
+		
+		private System.Nullable<int> _IsAvtive;
+		
+		private EntitySet<Tenancy> _Tenancies;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDStatusChanging(int value);
+    partial void OnIDStatusChanged();
+    partial void OnStatusNameChanging(string value);
+    partial void OnStatusNameChanged();
+    partial void OnIsAvtiveChanging(System.Nullable<int> value);
+    partial void OnIsAvtiveChanged();
+    #endregion
+		
+		public TenancyStatus()
+		{
+			this._Tenancies = new EntitySet<Tenancy>(new Action<Tenancy>(this.attach_Tenancies), new Action<Tenancy>(this.detach_Tenancies));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDStatus", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDStatus
+		{
+			get
+			{
+				return this._IDStatus;
+			}
+			set
+			{
+				if ((this._IDStatus != value))
+				{
+					this.OnIDStatusChanging(value);
+					this.SendPropertyChanging();
+					this._IDStatus = value;
+					this.SendPropertyChanged("IDStatus");
+					this.OnIDStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusName", DbType="NVarChar(128)")]
+		public string StatusName
+		{
+			get
+			{
+				return this._StatusName;
+			}
+			set
+			{
+				if ((this._StatusName != value))
+				{
+					this.OnStatusNameChanging(value);
+					this.SendPropertyChanging();
+					this._StatusName = value;
+					this.SendPropertyChanged("StatusName");
+					this.OnStatusNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvtive", DbType="Int")]
+		public System.Nullable<int> IsAvtive
+		{
+			get
+			{
+				return this._IsAvtive;
+			}
+			set
+			{
+				if ((this._IsAvtive != value))
+				{
+					this.OnIsAvtiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsAvtive = value;
+					this.SendPropertyChanged("IsAvtive");
+					this.OnIsAvtiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TenancyStatus_Tenancy", Storage="_Tenancies", ThisKey="IDStatus", OtherKey="TenancyS")]
+		public EntitySet<Tenancy> Tenancies
+		{
+			get
+			{
+				return this._Tenancies;
+			}
+			set
+			{
+				this._Tenancies.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Tenancies(Tenancy entity)
+		{
+			this.SendPropertyChanging();
+			entity.TenancyStatus = this;
+		}
+		
+		private void detach_Tenancies(Tenancy entity)
+		{
+			this.SendPropertyChanging();
+			entity.TenancyStatus = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BillStatus")]
+	public partial class BillStatus : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDStatus;
+		
+		private string _StatusName;
+		
+		private System.Nullable<int> _IsAvtive;
+		
+		private EntitySet<Bill> _Bills;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDStatusChanging(int value);
+    partial void OnIDStatusChanged();
+    partial void OnStatusNameChanging(string value);
+    partial void OnStatusNameChanged();
+    partial void OnIsAvtiveChanging(System.Nullable<int> value);
+    partial void OnIsAvtiveChanged();
+    #endregion
+		
+		public BillStatus()
+		{
+			this._Bills = new EntitySet<Bill>(new Action<Bill>(this.attach_Bills), new Action<Bill>(this.detach_Bills));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDStatus", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDStatus
+		{
+			get
+			{
+				return this._IDStatus;
+			}
+			set
+			{
+				if ((this._IDStatus != value))
+				{
+					this.OnIDStatusChanging(value);
+					this.SendPropertyChanging();
+					this._IDStatus = value;
+					this.SendPropertyChanged("IDStatus");
+					this.OnIDStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusName", DbType="NVarChar(128)")]
+		public string StatusName
+		{
+			get
+			{
+				return this._StatusName;
+			}
+			set
+			{
+				if ((this._StatusName != value))
+				{
+					this.OnStatusNameChanging(value);
+					this.SendPropertyChanging();
+					this._StatusName = value;
+					this.SendPropertyChanged("StatusName");
+					this.OnStatusNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvtive", DbType="Int")]
+		public System.Nullable<int> IsAvtive
+		{
+			get
+			{
+				return this._IsAvtive;
+			}
+			set
+			{
+				if ((this._IsAvtive != value))
+				{
+					this.OnIsAvtiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsAvtive = value;
+					this.SendPropertyChanged("IsAvtive");
+					this.OnIsAvtiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BillStatus_Bill", Storage="_Bills", ThisKey="IDStatus", OtherKey="BillS")]
+		public EntitySet<Bill> Bills
+		{
+			get
+			{
+				return this._Bills;
+			}
+			set
+			{
+				this._Bills.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.BillStatus = this;
+		}
+		
+		private void detach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.BillStatus = null;
 		}
 	}
 	
@@ -424,144 +1252,6 @@ namespace HotelManagement.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StatusRoomType")]
-	public partial class StatusRoomType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IDStatus;
-		
-		private string _StatusName;
-		
-		private System.Nullable<int> _IsAvtive;
-		
-		private EntitySet<RoomType> _RoomTypes;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDStatusChanging(int value);
-    partial void OnIDStatusChanged();
-    partial void OnStatusNameChanging(string value);
-    partial void OnStatusNameChanged();
-    partial void OnIsAvtiveChanging(System.Nullable<int> value);
-    partial void OnIsAvtiveChanged();
-    #endregion
-		
-		public StatusRoomType()
-		{
-			this._RoomTypes = new EntitySet<RoomType>(new Action<RoomType>(this.attach_RoomTypes), new Action<RoomType>(this.detach_RoomTypes));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDStatus", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IDStatus
-		{
-			get
-			{
-				return this._IDStatus;
-			}
-			set
-			{
-				if ((this._IDStatus != value))
-				{
-					this.OnIDStatusChanging(value);
-					this.SendPropertyChanging();
-					this._IDStatus = value;
-					this.SendPropertyChanged("IDStatus");
-					this.OnIDStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusName", DbType="NVarChar(128)")]
-		public string StatusName
-		{
-			get
-			{
-				return this._StatusName;
-			}
-			set
-			{
-				if ((this._StatusName != value))
-				{
-					this.OnStatusNameChanging(value);
-					this.SendPropertyChanging();
-					this._StatusName = value;
-					this.SendPropertyChanged("StatusName");
-					this.OnStatusNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvtive", DbType="Int")]
-		public System.Nullable<int> IsAvtive
-		{
-			get
-			{
-				return this._IsAvtive;
-			}
-			set
-			{
-				if ((this._IsAvtive != value))
-				{
-					this.OnIsAvtiveChanging(value);
-					this.SendPropertyChanging();
-					this._IsAvtive = value;
-					this.SendPropertyChanged("IsAvtive");
-					this.OnIsAvtiveChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatusRoomType_RoomType", Storage="_RoomTypes", ThisKey="IDStatus", OtherKey="StatusRT")]
-		public EntitySet<RoomType> RoomTypes
-		{
-			get
-			{
-				return this._RoomTypes;
-			}
-			set
-			{
-				this._RoomTypes.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_RoomTypes(RoomType entity)
-		{
-			this.SendPropertyChanging();
-			entity.StatusRoomType = this;
-		}
-		
-		private void detach_RoomTypes(RoomType entity)
-		{
-			this.SendPropertyChanging();
-			entity.StatusRoomType = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ClusterStatus")]
 	public partial class ClusterStatus : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -716,6 +1406,10 @@ namespace HotelManagement.Models
 		
 		private System.Nullable<int> _CustomerS;
 		
+		private string _Password;
+		
+		private EntitySet<Tenancy> _Tenancies;
+		
 		private EntityRef<CustomerStatus> _CustomerStatus;
 		
     #region Extensibility Method Definitions
@@ -732,10 +1426,13 @@ namespace HotelManagement.Models
     partial void OnemailChanged();
     partial void OnCustomerSChanging(System.Nullable<int> value);
     partial void OnCustomerSChanged();
+    partial void OnPasswordChanging(string value);
+    partial void OnPasswordChanged();
     #endregion
 		
 		public Customer()
 		{
+			this._Tenancies = new EntitySet<Tenancy>(new Action<Tenancy>(this.attach_Tenancies), new Action<Tenancy>(this.detach_Tenancies));
 			this._CustomerStatus = default(EntityRef<CustomerStatus>);
 			OnCreated();
 		}
@@ -844,6 +1541,39 @@ namespace HotelManagement.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="Char(50)")]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this.OnPasswordChanging(value);
+					this.SendPropertyChanging();
+					this._Password = value;
+					this.SendPropertyChanged("Password");
+					this.OnPasswordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Tenancy", Storage="_Tenancies", ThisKey="ID", OtherKey="CustomerID")]
+		public EntitySet<Tenancy> Tenancies
+		{
+			get
+			{
+				return this._Tenancies;
+			}
+			set
+			{
+				this._Tenancies.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CustomerStatus_Customer", Storage="_CustomerStatus", ThisKey="CustomerS", OtherKey="IDStatus", IsForeignKey=true)]
 		public CustomerStatus CustomerStatus
 		{
@@ -896,6 +1626,18 @@ namespace HotelManagement.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Tenancies(Tenancy entity)
+		{
+			this.SendPropertyChanging();
+			entity.Customer = this;
+		}
+		
+		private void detach_Tenancies(Tenancy entity)
+		{
+			this.SendPropertyChanging();
+			entity.Customer = null;
 		}
 	}
 	
@@ -1037,6 +1779,157 @@ namespace HotelManagement.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Images")]
+	public partial class Image : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _SourceRoomImages;
+		
+		private System.Nullable<int> _IDRoom;
+		
+		private EntityRef<Room> _Room;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnSourceRoomImagesChanging(string value);
+    partial void OnSourceRoomImagesChanged();
+    partial void OnIDRoomChanging(System.Nullable<int> value);
+    partial void OnIDRoomChanged();
+    #endregion
+		
+		public Image()
+		{
+			this._Room = default(EntityRef<Room>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SourceRoomImages", DbType="Char(4000)")]
+		public string SourceRoomImages
+		{
+			get
+			{
+				return this._SourceRoomImages;
+			}
+			set
+			{
+				if ((this._SourceRoomImages != value))
+				{
+					this.OnSourceRoomImagesChanging(value);
+					this.SendPropertyChanging();
+					this._SourceRoomImages = value;
+					this.SendPropertyChanged("SourceRoomImages");
+					this.OnSourceRoomImagesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDRoom", DbType="Int")]
+		public System.Nullable<int> IDRoom
+		{
+			get
+			{
+				return this._IDRoom;
+			}
+			set
+			{
+				if ((this._IDRoom != value))
+				{
+					if (this._Room.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIDRoomChanging(value);
+					this.SendPropertyChanging();
+					this._IDRoom = value;
+					this.SendPropertyChanged("IDRoom");
+					this.OnIDRoomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_Image", Storage="_Room", ThisKey="IDRoom", OtherKey="IDRoom", IsForeignKey=true)]
+		public Room Room
+		{
+			get
+			{
+				return this._Room.Entity;
+			}
+			set
+			{
+				Room previousValue = this._Room.Entity;
+				if (((previousValue != value) 
+							|| (this._Room.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Room.Entity = null;
+						previousValue.Images.Remove(this);
+					}
+					this._Room.Entity = value;
+					if ((value != null))
+					{
+						value.Images.Add(this);
+						this._IDRoom = value.IDRoom;
+					}
+					else
+					{
+						this._IDRoom = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Room");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Payments")]
 	public partial class Payment : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1048,6 +1941,8 @@ namespace HotelManagement.Models
 		private string _PaymentsName;
 		
 		private System.Nullable<int> _PaymentS;
+		
+		private EntitySet<Bill> _Bills;
 		
 		private EntityRef<PaymentsStatus> _PaymentsStatus;
 		
@@ -1065,6 +1960,7 @@ namespace HotelManagement.Models
 		
 		public Payment()
 		{
+			this._Bills = new EntitySet<Bill>(new Action<Bill>(this.attach_Bills), new Action<Bill>(this.detach_Bills));
 			this._PaymentsStatus = default(EntityRef<PaymentsStatus>);
 			OnCreated();
 		}
@@ -1133,6 +2029,19 @@ namespace HotelManagement.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Payment_Bill", Storage="_Bills", ThisKey="ID", OtherKey="PaymentsS")]
+		public EntitySet<Bill> Bills
+		{
+			get
+			{
+				return this._Bills;
+			}
+			set
+			{
+				this._Bills.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PaymentsStatus_Payment", Storage="_PaymentsStatus", ThisKey="PaymentS", OtherKey="IDStatus", IsForeignKey=true)]
 		public PaymentsStatus PaymentsStatus
 		{
@@ -1185,6 +2094,18 @@ namespace HotelManagement.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.Payment = this;
+		}
+		
+		private void detach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.Payment = null;
 		}
 	}
 	
@@ -1342,6 +2263,18 @@ namespace HotelManagement.Models
 		
 		private System.Nullable<int> _Cluster_ID;
 		
+		private System.Nullable<double> _Price;
+		
+		private System.Nullable<int> _Area;
+		
+		private System.Nullable<int> _Amount;
+		
+		private string _Describe;
+		
+		private EntitySet<Image> _Images;
+		
+		private EntitySet<Tenancy> _Tenancies;
+		
 		private EntityRef<Cluster> _Cluster;
 		
 		private EntityRef<RoomStatus> _RoomStatus;
@@ -1362,10 +2295,20 @@ namespace HotelManagement.Models
     partial void OnRoomType_IDChanged();
     partial void OnCluster_IDChanging(System.Nullable<int> value);
     partial void OnCluster_IDChanged();
+    partial void OnPriceChanging(System.Nullable<double> value);
+    partial void OnPriceChanged();
+    partial void OnAreaChanging(System.Nullable<int> value);
+    partial void OnAreaChanged();
+    partial void OnAmountChanging(System.Nullable<int> value);
+    partial void OnAmountChanged();
+    partial void OnDescribeChanging(string value);
+    partial void OnDescribeChanged();
     #endregion
 		
 		public Room()
 		{
+			this._Images = new EntitySet<Image>(new Action<Image>(this.attach_Images), new Action<Image>(this.detach_Images));
+			this._Tenancies = new EntitySet<Tenancy>(new Action<Tenancy>(this.attach_Tenancies), new Action<Tenancy>(this.detach_Tenancies));
 			this._Cluster = default(EntityRef<Cluster>);
 			this._RoomStatus = default(EntityRef<RoomStatus>);
 			this._RoomType = default(EntityRef<RoomType>);
@@ -1481,6 +2424,112 @@ namespace HotelManagement.Models
 					this.SendPropertyChanged("Cluster_ID");
 					this.OnCluster_IDChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+		public System.Nullable<double> Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Area", DbType="Int")]
+		public System.Nullable<int> Area
+		{
+			get
+			{
+				return this._Area;
+			}
+			set
+			{
+				if ((this._Area != value))
+				{
+					this.OnAreaChanging(value);
+					this.SendPropertyChanging();
+					this._Area = value;
+					this.SendPropertyChanged("Area");
+					this.OnAreaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Int")]
+		public System.Nullable<int> Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this.OnAmountChanging(value);
+					this.SendPropertyChanging();
+					this._Amount = value;
+					this.SendPropertyChanged("Amount");
+					this.OnAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Describe", DbType="NChar(4000)")]
+		public string Describe
+		{
+			get
+			{
+				return this._Describe;
+			}
+			set
+			{
+				if ((this._Describe != value))
+				{
+					this.OnDescribeChanging(value);
+					this.SendPropertyChanging();
+					this._Describe = value;
+					this.SendPropertyChanged("Describe");
+					this.OnDescribeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_Image", Storage="_Images", ThisKey="IDRoom", OtherKey="IDRoom")]
+		public EntitySet<Image> Images
+		{
+			get
+			{
+				return this._Images;
+			}
+			set
+			{
+				this._Images.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_Tenancy", Storage="_Tenancies", ThisKey="IDRoom", OtherKey="TenancyRoom")]
+		public EntitySet<Tenancy> Tenancies
+		{
+			get
+			{
+				return this._Tenancies;
+			}
+			set
+			{
+				this._Tenancies.Assign(value);
 			}
 		}
 		
@@ -1604,6 +2653,30 @@ namespace HotelManagement.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Images(Image entity)
+		{
+			this.SendPropertyChanging();
+			entity.Room = this;
+		}
+		
+		private void detach_Images(Image entity)
+		{
+			this.SendPropertyChanging();
+			entity.Room = null;
+		}
+		
+		private void attach_Tenancies(Tenancy entity)
+		{
+			this.SendPropertyChanging();
+			entity.Room = this;
+		}
+		
+		private void detach_Tenancies(Tenancy entity)
+		{
+			this.SendPropertyChanging();
+			entity.Room = null;
 		}
 	}
 	
@@ -1921,6 +2994,525 @@ namespace HotelManagement.Models
 		{
 			this.SendPropertyChanging();
 			entity.RoomType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StatusRoomType")]
+	public partial class StatusRoomType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDStatus;
+		
+		private string _StatusName;
+		
+		private System.Nullable<int> _IsAvtive;
+		
+		private EntitySet<RoomType> _RoomTypes;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDStatusChanging(int value);
+    partial void OnIDStatusChanged();
+    partial void OnStatusNameChanging(string value);
+    partial void OnStatusNameChanged();
+    partial void OnIsAvtiveChanging(System.Nullable<int> value);
+    partial void OnIsAvtiveChanged();
+    #endregion
+		
+		public StatusRoomType()
+		{
+			this._RoomTypes = new EntitySet<RoomType>(new Action<RoomType>(this.attach_RoomTypes), new Action<RoomType>(this.detach_RoomTypes));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDStatus", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IDStatus
+		{
+			get
+			{
+				return this._IDStatus;
+			}
+			set
+			{
+				if ((this._IDStatus != value))
+				{
+					this.OnIDStatusChanging(value);
+					this.SendPropertyChanging();
+					this._IDStatus = value;
+					this.SendPropertyChanged("IDStatus");
+					this.OnIDStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusName", DbType="NVarChar(128)")]
+		public string StatusName
+		{
+			get
+			{
+				return this._StatusName;
+			}
+			set
+			{
+				if ((this._StatusName != value))
+				{
+					this.OnStatusNameChanging(value);
+					this.SendPropertyChanging();
+					this._StatusName = value;
+					this.SendPropertyChanged("StatusName");
+					this.OnStatusNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvtive", DbType="Int")]
+		public System.Nullable<int> IsAvtive
+		{
+			get
+			{
+				return this._IsAvtive;
+			}
+			set
+			{
+				if ((this._IsAvtive != value))
+				{
+					this.OnIsAvtiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsAvtive = value;
+					this.SendPropertyChanged("IsAvtive");
+					this.OnIsAvtiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatusRoomType_RoomType", Storage="_RoomTypes", ThisKey="IDStatus", OtherKey="StatusRT")]
+		public EntitySet<RoomType> RoomTypes
+		{
+			get
+			{
+				return this._RoomTypes;
+			}
+			set
+			{
+				this._RoomTypes.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_RoomTypes(RoomType entity)
+		{
+			this.SendPropertyChanging();
+			entity.StatusRoomType = this;
+		}
+		
+		private void detach_RoomTypes(RoomType entity)
+		{
+			this.SendPropertyChanging();
+			entity.StatusRoomType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tenancy")]
+	public partial class Tenancy : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _TenancyRoom;
+		
+		private System.Nullable<double> _Deposit;
+		
+		private System.Nullable<System.DateTime> _TenancyDate;
+		
+		private string _CustomerID;
+		
+		private System.Nullable<System.DateTime> _TimeStart;
+		
+		private System.Nullable<System.DateTime> _TimeEnd;
+		
+		private System.Nullable<int> _TenancyS;
+		
+		private EntitySet<Bill> _Bills;
+		
+		private EntityRef<Customer> _Customer;
+		
+		private EntityRef<Room> _Room;
+		
+		private EntityRef<TenancyStatus> _TenancyStatus;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnTenancyRoomChanging(System.Nullable<int> value);
+    partial void OnTenancyRoomChanged();
+    partial void OnDepositChanging(System.Nullable<double> value);
+    partial void OnDepositChanged();
+    partial void OnTenancyDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnTenancyDateChanged();
+    partial void OnCustomerIDChanging(string value);
+    partial void OnCustomerIDChanged();
+    partial void OnTimeStartChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimeStartChanged();
+    partial void OnTimeEndChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimeEndChanged();
+    partial void OnTenancySChanging(System.Nullable<int> value);
+    partial void OnTenancySChanged();
+    #endregion
+		
+		public Tenancy()
+		{
+			this._Bills = new EntitySet<Bill>(new Action<Bill>(this.attach_Bills), new Action<Bill>(this.detach_Bills));
+			this._Customer = default(EntityRef<Customer>);
+			this._Room = default(EntityRef<Room>);
+			this._TenancyStatus = default(EntityRef<TenancyStatus>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenancyRoom", DbType="Int")]
+		public System.Nullable<int> TenancyRoom
+		{
+			get
+			{
+				return this._TenancyRoom;
+			}
+			set
+			{
+				if ((this._TenancyRoom != value))
+				{
+					if (this._Room.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTenancyRoomChanging(value);
+					this.SendPropertyChanging();
+					this._TenancyRoom = value;
+					this.SendPropertyChanged("TenancyRoom");
+					this.OnTenancyRoomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deposit", DbType="Float")]
+		public System.Nullable<double> Deposit
+		{
+			get
+			{
+				return this._Deposit;
+			}
+			set
+			{
+				if ((this._Deposit != value))
+				{
+					this.OnDepositChanging(value);
+					this.SendPropertyChanging();
+					this._Deposit = value;
+					this.SendPropertyChanged("Deposit");
+					this.OnDepositChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenancyDate", DbType="Date")]
+		public System.Nullable<System.DateTime> TenancyDate
+		{
+			get
+			{
+				return this._TenancyDate;
+			}
+			set
+			{
+				if ((this._TenancyDate != value))
+				{
+					this.OnTenancyDateChanging(value);
+					this.SendPropertyChanging();
+					this._TenancyDate = value;
+					this.SendPropertyChanged("TenancyDate");
+					this.OnTenancyDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerID", DbType="Char(20)")]
+		public string CustomerID
+		{
+			get
+			{
+				return this._CustomerID;
+			}
+			set
+			{
+				if ((this._CustomerID != value))
+				{
+					if (this._Customer.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCustomerIDChanging(value);
+					this.SendPropertyChanging();
+					this._CustomerID = value;
+					this.SendPropertyChanged("CustomerID");
+					this.OnCustomerIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeStart", DbType="Date")]
+		public System.Nullable<System.DateTime> TimeStart
+		{
+			get
+			{
+				return this._TimeStart;
+			}
+			set
+			{
+				if ((this._TimeStart != value))
+				{
+					this.OnTimeStartChanging(value);
+					this.SendPropertyChanging();
+					this._TimeStart = value;
+					this.SendPropertyChanged("TimeStart");
+					this.OnTimeStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeEnd", DbType="Date")]
+		public System.Nullable<System.DateTime> TimeEnd
+		{
+			get
+			{
+				return this._TimeEnd;
+			}
+			set
+			{
+				if ((this._TimeEnd != value))
+				{
+					this.OnTimeEndChanging(value);
+					this.SendPropertyChanging();
+					this._TimeEnd = value;
+					this.SendPropertyChanged("TimeEnd");
+					this.OnTimeEndChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenancyS", DbType="Int")]
+		public System.Nullable<int> TenancyS
+		{
+			get
+			{
+				return this._TenancyS;
+			}
+			set
+			{
+				if ((this._TenancyS != value))
+				{
+					if (this._TenancyStatus.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTenancySChanging(value);
+					this.SendPropertyChanging();
+					this._TenancyS = value;
+					this.SendPropertyChanged("TenancyS");
+					this.OnTenancySChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tenancy_Bill", Storage="_Bills", ThisKey="ID", OtherKey="TenancyRoom")]
+		public EntitySet<Bill> Bills
+		{
+			get
+			{
+				return this._Bills;
+			}
+			set
+			{
+				this._Bills.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Tenancy", Storage="_Customer", ThisKey="CustomerID", OtherKey="ID", IsForeignKey=true)]
+		public Customer Customer
+		{
+			get
+			{
+				return this._Customer.Entity;
+			}
+			set
+			{
+				Customer previousValue = this._Customer.Entity;
+				if (((previousValue != value) 
+							|| (this._Customer.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Customer.Entity = null;
+						previousValue.Tenancies.Remove(this);
+					}
+					this._Customer.Entity = value;
+					if ((value != null))
+					{
+						value.Tenancies.Add(this);
+						this._CustomerID = value.ID;
+					}
+					else
+					{
+						this._CustomerID = default(string);
+					}
+					this.SendPropertyChanged("Customer");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_Tenancy", Storage="_Room", ThisKey="TenancyRoom", OtherKey="IDRoom", IsForeignKey=true)]
+		public Room Room
+		{
+			get
+			{
+				return this._Room.Entity;
+			}
+			set
+			{
+				Room previousValue = this._Room.Entity;
+				if (((previousValue != value) 
+							|| (this._Room.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Room.Entity = null;
+						previousValue.Tenancies.Remove(this);
+					}
+					this._Room.Entity = value;
+					if ((value != null))
+					{
+						value.Tenancies.Add(this);
+						this._TenancyRoom = value.IDRoom;
+					}
+					else
+					{
+						this._TenancyRoom = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Room");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TenancyStatus_Tenancy", Storage="_TenancyStatus", ThisKey="TenancyS", OtherKey="IDStatus", IsForeignKey=true)]
+		public TenancyStatus TenancyStatus
+		{
+			get
+			{
+				return this._TenancyStatus.Entity;
+			}
+			set
+			{
+				TenancyStatus previousValue = this._TenancyStatus.Entity;
+				if (((previousValue != value) 
+							|| (this._TenancyStatus.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TenancyStatus.Entity = null;
+						previousValue.Tenancies.Remove(this);
+					}
+					this._TenancyStatus.Entity = value;
+					if ((value != null))
+					{
+						value.Tenancies.Add(this);
+						this._TenancyS = value.IDStatus;
+					}
+					else
+					{
+						this._TenancyS = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TenancyStatus");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tenancy = this;
+		}
+		
+		private void detach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tenancy = null;
 		}
 	}
 }
