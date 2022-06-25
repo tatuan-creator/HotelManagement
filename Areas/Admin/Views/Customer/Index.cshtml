@@ -52,8 +52,8 @@
     <script>
         $(".btn-delete").on('click', function () {
             let id = $(this).attr("data-id");
-            if (confirm("Bạn có chắc chắn muốn đặt về không hoạt động cho loại phòng với id: " + id)) {
-                window.location.href = '/Admin/RoomType/Delete?id=' + id;
+            if (confirm("Bạn có chắc chắn muốn đặt về không hoạt động cho khách hàng với id: " + id)) {
+                window.location.href = '/Admin/Customer/Delete?id=' + id;
             }
         })
     </script>

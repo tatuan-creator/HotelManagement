@@ -419,6 +419,10 @@ ol {
 	padding: 24px 0;
 }
 
+.header__menu ul {
+	padding-top: 20px;
+}
+
 .header__menu ul li {
 	list-style: none;
 	display: inline-block;

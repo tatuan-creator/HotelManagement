@@ -34,27 +34,30 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         public ActionResult Update(int id)
         {
-            var item = data.RoomTypes.FirstOrDefault(m => m.IDRoomType == id);
-            ViewBag.roomTypeStatus = data.StatusRoomTypes.ToList();
+            var item = data.Clusters.FirstOrDefault(m => m.ID == id);
+            ViewBag.clusterStatus = data.ClusterStatus.ToList();
             return View(item);
         }
 
         [HttpPost]
-        public ActionResult Update(RoomType roomType)
+        public ActionResult Update(Cluster cluster)
         {
-            var item = data.RoomTypes.FirstOrDefault(m => m.IDRoomType == roomType.IDRoomType);
-            item.RoomTypeName = roomType.RoomTypeName;
-            item.StatusRT = roomType.StatusRT;
+            var item = data.Clusters.FirstOrDefault(m => m.ID == cluster.ID);
+            item.AddressCluster = cluster.AddressCluster;
+            item.ManagementEmail = cluster.ManagementEmail;
+            item.ManagementPhone = cluster.ManagementPhone;
+            item.ManagementName = cluster.ManagementName;
+            item.ClusterS = cluster.ClusterS;
             data.SubmitChanges();
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id)
         {
-            var item = data.RoomTypes.FirstOrDefault(m => m.IDRoomType == id);
-            item.StatusRT = 0;
+            var item = data.Clusters.FirstOrDefault(m => m.ID == id);
+            item.ClusterS = 2;
             data.SubmitChanges();
-            return RedirectToAction("Index", "RoomType");
+            return RedirectToAction("Index", "Cluster");
         }
     }
 }

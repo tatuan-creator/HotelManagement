@@ -21,10 +21,8 @@
                 <thead>
                     <tr>
                         <th class="text-center">Địa chỉ cụm</th>
-                        <th class="text-center">Tên người quản lý</th>
-                        <th class="text-center">Số điện thoại người quản lý</th>
-                        <th class="text-center">Email người quản lý</th>
                         <th class="text-center">Trạng thái cụm</th>
+                        <th class="text-center">Thông tin quản lý</th>
                         <th class="text-center">Tác vụ</th>
                     </tr>
                 </thead>
@@ -33,10 +31,8 @@
                     {
                         <tr>
                             <td class="text-center">@item.AddressCluster</td>
-                            <td class="text-center">@item.ManagementName</td>
-                            <td class="text-center">@item.ManagementPhone</td>
-                            <td class="text-center">@item.ManagementEmail</td>
                             <td class="text-center">@item.ClusterStatus.StatusName</td>
+                            <td class="text-center">@item.ManagementName <br /> @item.ManagementPhone <br />@item.ManagementEmail</td>
                             <td class="text-center">
                                 <a href="@Url.Action("Update", "Cluster", new {id = item.ID})" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a data-id="@item.ID" class="btn btn-sm btn-danger text-white btn-delete"><i class="fa-solid fa-trash"></i></a>
@@ -53,8 +49,8 @@
     <script>
         $(".btn-delete").on('click', function () {
             let id = $(this).attr("data-id");
-            if (confirm("Bạn có chắc chắn muốn đặt về không hoạt động cho loại phòng với id: " + id)) {
-                window.location.href = '/Admin/RoomType/Delete?id=' + id;
+            if (confirm("Bạn có chắc chắn muốn đặt về không hoạt động cho cụm phòng với id: " + id)) {
+                window.location.href = '/Admin/Cluster/Delete?id=' + id;
             }
         })
     </script>

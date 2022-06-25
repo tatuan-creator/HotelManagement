@@ -17,11 +17,17 @@ namespace HotelManagement.Areas.Admin.Controllers
             return View(listRoom);
         }
 
+        public ActionResult Detail(int id)
+        {
+            var roomDetail = data.Rooms.FirstOrDefault(m => m.IDRoom == id);
+            return View(roomDetail);
+        }
+
         public ActionResult Create()
         {
             ViewBag.roomType = data.RoomTypes.ToList();
             ViewBag.cluster = data.Clusters.ToList();
-            ViewBag.status = data.RoomStatus.ToList();
+            ViewBag.roomStatus = data.RoomStatus.ToList();
             return View(new Room());
         }
 
@@ -36,27 +42,35 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         public ActionResult Update(int id)
         {
-            var item = data.RoomTypes.FirstOrDefault(m => m.IDRoomType == id);
-            ViewBag.roomTypeStatus = data.StatusRoomTypes.ToList();
+            var item = data.Rooms.FirstOrDefault(m => m.IDRoom == id);
+            ViewBag.roomType = data.RoomTypes.ToList();
+            ViewBag.cluster = data.Clusters.ToList();
+            ViewBag.roomStatus = data.RoomStatus.ToList();
             return View(item);
         }
 
         [HttpPost]
-        public ActionResult Update(RoomType roomType)
+        public ActionResult Update(Room room)
         {
-            var item = data.RoomTypes.FirstOrDefault(m => m.IDRoomType == roomType.IDRoomType);
-            item.RoomTypeName = roomType.RoomTypeName;
-            item.StatusRT = roomType.StatusRT;
+            var item = data.Rooms.FirstOrDefault(m => m.IDRoom == room.IDRoom);
+            item.RoomName = room.RoomName;
+            item.StatusR = room.StatusR;
+            item.RoomType_ID = room.RoomType_ID;
+            item.Cluster_ID = room.Cluster_ID;
+            item.Amount = room.Amount;
+            item.Area = room.Area;
+            item.Price = room.Price;
+            item.Describe = room.Describe;
             data.SubmitChanges();
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id)
         {
-            var item = data.RoomTypes.FirstOrDefault(m => m.IDRoomType == id);
-            item.StatusRT = 0;
+            var item = data.Rooms.FirstOrDefault(m => m.IDRoom == id);
+            item.StatusR = 0;
             data.SubmitChanges();
-            return RedirectToAction("Index", "RoomType");
+            return RedirectToAction("Index", "Room");
         }
     }
 }

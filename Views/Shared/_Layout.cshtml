@@ -1,42 +1,171 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zxx">
+
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trọ 247</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Public/assetsCustomer/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Public/assetsCustomer/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Public/assetsCustomer/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Public/assetsCustomer/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Public/assetsCustomer/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Public/assetsCustomer/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Public/assetsCustomer/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Public/assetsCustomer/css/style.css" type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
     </div>
 
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__left">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a href="#">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index"><img src="~/images/logouser.png" alt="" width="200px"></a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="./index">Trang chủ</a></li>
+                            <li><a href="./shop-grid.html">Xem Phòng</a></li>
+                            <li><a href="">Tuyển dụng</a></li>
+                            <li><a href="./contact.html">Liên hệ</a></li>
+                            <li><a href="">Khách hàng</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="col-lg-1">
+                    <div class="header__cart">
+                        <ul>
+                            <li><a href="@Url.Action("ShopingBag","Home")"><i class="fa fa-shopping-bag"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+    <!-- Hero Section Begin -->
+    <!-- Hero Section End -->
+    @* Body *@
+
+    @RenderBody()
+
+
+    @* End Body *@
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <ul>
+                            <li>Địa chỉ: 475A Điện Biên Phủ, Phường 25, Quận Bình Thạnh, Thành Phố Hồ Chí Minh</li>
+                            <li>Điện thoại: +84 862 278 725</li>
+                            <li>Email: tatuan.hutech@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <ul>
+                            <li><a href="#">Về chúng tôi</a></li>
+                            <li><a href="#">Thông tin vận chuyển</a></li>
+                            <li><a href="#">Chính sách bảo mật</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Dịch vụ của chúng tôi</a></li>
+                            <li><a href="#">Dự án</a></li>
+                            <li><a href="#">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Nhận thông tin cập nhật mới nhất từ chúng tôi</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Địa chỉ email ...">
+                            <button type="submit" class="site-btn">Theo dõi</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved - Đồ án cơ sở
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="~/Public/assetsCustomer/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Public/assetsCustomer/js/bootstrap.min.js"></script>
+    <script src="~/Public/assetsCustomer/js/jquery.nice-select.min.js"></script>
+    <script src="~/Public/assetsCustomer/js/jquery-ui.min.js"></script>
+    <script src="~/Public/assetsCustomer/js/jquery.slicknav.js"></script>
+    <script src="~/Public/assetsCustomer/js/mixitup.min.js"></script>
+    <script src="~/Public/assetsCustomer/js/owl.carousel.min.js"></script>
+    <script src="~/Public/assetsCustomer/js/main.js"></script>
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
+
 </html>

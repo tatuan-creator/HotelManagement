@@ -23,6 +23,7 @@
                         <th class="text-center">Tên phòng</th>
                         <th class="text-center">Loại phòng</th>
                         <th class="text-center">Địa chỉ cụm</th>
+                        <th class="text-center">Trạng thái</th>
                         <th class="text-center">Tác vụ</th>
                     </tr>
                 </thead>
@@ -37,6 +38,7 @@
                             <td class="text-center">
                                 <a href="@Url.Action("Update", "Room", new {id = item.IDRoom})" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a data-id="@item.IDRoom" class="btn btn-sm btn-danger text-white btn-delete"><i class="fa-solid fa-trash"></i></a>
+                                <a href="@Url.Action("Detail", "Room", new {id = item.IDRoom})" class="btn btn-sm btn-success"><i class="fa-solid fa-info"></i></a>
                             </td>
                         </tr>
                     }
@@ -50,8 +52,8 @@
     <script>
         $(".btn-delete").on('click', function () {
             let id = $(this).attr("data-id");
-            if (confirm("Bạn có chắc chắn muốn đặt về không hoạt động cho loại phòng với id: " + id)) {
-                window.location.href = '/Admin/RoomType/Delete?id=' + id;
+            if (confirm("Bạn có chắc chắn muốn đặt về đã thuê cho phòng với id: " + id)) {
+                window.location.href = '/Admin/Room/Delete?id=' + id;
             }
         })
     </script>
