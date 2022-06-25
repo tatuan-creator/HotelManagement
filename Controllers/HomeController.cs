@@ -16,9 +16,14 @@ namespace HotelManagement.Controllers
             return View();
         }
 
+
         public ActionResult Login()
         {
-            return View(new Customer());
+            if (Session["KhachHang"] == null)
+            {
+                return View(new Customer());
+            }
+            return Redirect("~/CustomerAdmin/Index");
         }
 
         [HttpPost]
@@ -28,10 +33,10 @@ namespace HotelManagement.Controllers
             var loginCustomer = data.Customers.FirstOrDefault(m => m.ID == customer.ID);
             if (loginCustomer != null)
             {
-                if (customer.ID == loginCustomer.ID.Trim() && loginCustomer.Password == customer.Password)
+                if (customer.ID == loginCustomer.ID.Trim() && loginCustomer.Password.Trim() == customer.Password)
                 {
                     Session["KhachHang"] = loginCustomer;
-                    return RedirectToAction("Index");
+                    return Redirect("~/CustomerAdmin/Index");
                 }
                 else
                 {
