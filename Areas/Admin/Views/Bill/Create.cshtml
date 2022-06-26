@@ -1,0 +1,83 @@
+﻿@model HotelManagement.Models.Bill
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Bill", FormMethod.Post))
+{
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4">Hoá đơn</h4>
+
+        <div class="card">
+            <div class="card-header row">
+                <div class="col-md-6">
+                    <h5>Tạo hoá đơn cho phòng @Model.Tenancy.Room.RoomName</h5>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="@Url.Action("Index", "Bill")" class="btn btn-primary text-white"><i class="fa-solid fa-rotate-left"></i> Trở về</a>
+                    <a class="btn btn-success savebill">lưu</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="Deposit">Chủ hợp đồng: @Model.Tenancy.Customer.FullName</label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.TenancyRoom, new {style="display:none", @class = "form-control my-2" })
+                </div>
+                <div class="form-group">
+                    <label for="Deposit">Tổng tiền: @Model.Total VNĐ</label>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="fw-bold py-3 mb-4"></h4>
+
+        <div class="card">
+            <div class="card-header row">
+                <div class="col-md-6">
+                    <h5>Thông tin chi tiết</h5>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button type="submit" class="btn btn-success text-white"> Cập nhật</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="TenancyDate">Ngày lập hoá đơn</label>
+                    @Html.TextBoxFor(m => m.BillDate, new { placeholder = "EX:20/10/2022", @class = "form-control my-2" })
+                </div>
+                <div class="form-group">
+                    <label for="TenancyDate">Tiền Điện</label>
+                    @Html.TextBoxFor(m => m.InitPower, new { placeholder = "Nhập chỉ số đầu ...", @class = "form-control my-2" })
+                    @Html.TextBoxFor(m => m.EndPower, new { placeholder = "Nhập chỉ số cuối ...", @class = "form-control my-2" })
+                    @Html.TextBoxFor(m => m.PowerUnitPrice, new { @class = "form-control my-2" })
+                </div>
+                <div class="form-group">
+                    <label for="TenancyDate">Tiền Nước</label>
+                    @Html.TextBoxFor(m => m.InitWater, new { placeholder = "Nhập chỉ số đầu ...", @class = "form-control my-2" })
+                    @Html.TextBoxFor(m => m.EndWater, new { placeholder = "Nhập chỉ số cuối ...", @class = "form-control my-2" })
+                    @Html.TextBoxFor(m => m.WaterUnitPrice, new { @class = "form-control my-2" })
+                </div>
+                <div class="form-group">
+                    <label for="TenancyDate">Tiền phụ thu</label>
+                    @Html.TextBoxFor(m => m.Surcharge, new { placeholder = "Nhập tổng số tiền phụ thu ...", @class = "form-control my-2" })
+                </div>
+                <div class="form-group">
+                    <label for="Surcharge">Mô tả</label>
+                    @Html.TextBoxFor(m => m.Desubcribe, new { @class = "form-control my-2" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section footer {
+    <script>
+        $(".savebill").on('click', function () {
+            confirm("bat su kien thanh cong" + document.getElementById("danhdau"));
+        })
+    </script>
+}

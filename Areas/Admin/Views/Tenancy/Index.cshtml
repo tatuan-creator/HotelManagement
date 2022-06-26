@@ -38,6 +38,11 @@
                             <td class="text-center">
                                 <a href="@Url.Action("Update", "Tenancy", new {id = item.ID})" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a data-id="@item.ID" class="btn btn-sm btn-danger text-white btn-delete"><i class="fa-solid fa-trash"></i></a>
+                                @if (item.TenancyStatus.StatusName.Equals("Hợp lệ"))
+                                {
+                                    <a href="@Url.Action("Create", "Bill", new {id = item.ID})" class="btn btn-sm btn-success text-white"><i class="fa-solid fa-money-bill"></i></a>
+
+                                }
                             </td>
                         </tr>
                     }
@@ -51,8 +56,8 @@
     <script>
         $(".btn-delete").on('click', function () {
             let id = $(this).attr("data-id");
-            if (confirm("Bạn có chắc chắn muốn đặt về không hoạt động cho loại phòng với id: " + id)) {
-                window.location.href = '/Admin/RoomType/Delete?id=' + id;
+            if (confirm("Bạn có chắc chắn muốn đặt về đã hết hạn cho hợp đồng với id: " + id)) {
+                window.location.href = '/Admin/Tenancy/Delete?id=' + id;
             }
         })
     </script>

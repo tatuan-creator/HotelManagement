@@ -16,6 +16,7 @@
       <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="BillS" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PaymentsS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BillDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="BillStatus_Bill" Member="BillStatus" ThisKey="BillS" OtherKey="IDStatus" Type="BillStatus" IsForeignKey="true" />
       <Association Name="Payment_Bill" Member="Payment" ThisKey="PaymentsS" OtherKey="ID" Type="Payment" IsForeignKey="true" />
       <Association Name="Tenancy_Bill" Member="Tenancy" ThisKey="TenancyRoom" OtherKey="ID" Type="Tenancy" IsForeignKey="true" />

@@ -131,6 +131,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BillController.cs" />
     <Compile Include="Areas\Admin\Controllers\ClusterController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\PaymentsController.cs" />
@@ -346,6 +347,10 @@
     <Content Include="Areas\Admin\Views\Room\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Room\Update.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Tenancy\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Bill\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Bill\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Bill\Update.cshtml" />
     <None Include="Models\MyData.dbml.layout">
       <DependentUpon>MyData.dbml</DependentUpon>
     </None>

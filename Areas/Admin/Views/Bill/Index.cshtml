@@ -1,0 +1,82 @@
+﻿@model IEnumerable<HotelManagement.Models.Bill>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">Hoá Đơn</h4>
+    <div class="card">
+        <div class="card-header row">
+            <div class="col-md-6">
+                <h5>Danh sách hoá đơn</h5>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="@Url.Action("Index", "Bill")" class="btn btn-success text-white"><i class="fa-solid fa-plus"></i>Thêm</a>
+            </div>
+        </div>
+        <div class="table-responsive text-nowrap card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tên phòng</th>
+                        <th class="text-center">Tên khách hàng</th>
+                        <th class="text-center">Số tiền</th>
+                        <th class="text-center">Ngày lập hoá đơn</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center">Tác vụ</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@item.Tenancy.Room.RoomName</td>
+                            <td class="text-center">@item.Tenancy.Customer.FullName</td>
+                            <td class="text-center">@item.Total</td>
+                            <td class="text-center">@item.BillDate</td>
+                            <td class="text-center">@item.BillStatus.StatusName</td>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-primary"><i class="fa-solid fa-info"></i></a>
+                                @if (item.BillStatus.StatusName.Equals("Chưa thanh toán"))
+                                {
+
+                                    <a href="@Url.Action("Update", "Bill", new {id = item.ID})" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a data-id="@item.ID" class="btn btn-sm btn-secondary successpay"><i class="fa-solid fa-check"></i></a>
+                                    <a data-id="@item.ID" class="btn btn-sm btn-danger text-white btn-delete"><i class="fa-solid fa-trash"></i></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section footer {
+    <script>
+        $(".btn-delete").on('click', function () {
+            let id = $(this).attr("data-id");
+            if (confirm("Bạn có chắc chắn muốn huỷ hoá đơn với id: " + id)) {
+                window.location.href = '/Admin/Bill/Delete?id=' + id;
+            }
+        })
+    </script>
+
+    <script>
+        $(".successpay").on('click', function () {
+            let id = $(this).attr("data-id");
+            if (confirm("Bạn có chắc chắn muốn đỏi trạng thái thanh toán thành công cho hoá đơn với id: " + id)) {
+                window.location.href = '/Admin/Bill/PaySuccess?id=' + id;
+            }
+        })
+    </script>
+
+    <script>
+        $(".btn-success").on('click', function () {
+            confirm("Để tạo hoá đơn vui lòng vào mục hợp đồng và chọn tạo hoá đơn")
+        })
+    </script>
+}

@@ -262,6 +262,8 @@ namespace HotelManagement.Models
 		
 		private System.Nullable<int> _PaymentsS;
 		
+		private System.Nullable<System.DateTime> _BillDate;
+		
 		private EntityRef<BillStatus> _BillStatus;
 		
 		private EntityRef<Payment> _Payment;
@@ -300,6 +302,8 @@ namespace HotelManagement.Models
     partial void OnBillSChanged();
     partial void OnPaymentsSChanging(System.Nullable<int> value);
     partial void OnPaymentsSChanged();
+    partial void OnBillDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnBillDateChanged();
     #endregion
 		
 		public Bill()
@@ -598,6 +602,26 @@ namespace HotelManagement.Models
 					this._PaymentsS = value;
 					this.SendPropertyChanged("PaymentsS");
 					this.OnPaymentsSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillDate", DbType="Date")]
+		public System.Nullable<System.DateTime> BillDate
+		{
+			get
+			{
+				return this._BillDate;
+			}
+			set
+			{
+				if ((this._BillDate != value))
+				{
+					this.OnBillDateChanging(value);
+					this.SendPropertyChanging();
+					this._BillDate = value;
+					this.SendPropertyChanged("BillDate");
+					this.OnBillDateChanged();
 				}
 			}
 		}

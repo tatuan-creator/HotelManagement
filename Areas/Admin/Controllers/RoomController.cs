@@ -9,6 +9,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 {
     public class RoomController : Controller
     {
+        private const string SAVE_PATH = "/images/";
         MyDataDataContext data = new MyDataDataContext();
         // GET: Admin/Room
         public ActionResult Index()
@@ -25,8 +26,8 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.roomType = data.RoomTypes.ToList();
-            ViewBag.cluster = data.Clusters.ToList();
+            ViewBag.roomType = data.RoomTypes.Where(m => m.StatusRoomType.StatusName.Equals("Hoạt Động")).ToList();
+            ViewBag.cluster = data.Clusters.Where(m => m.ClusterStatus.StatusName.Equals("Hoạt Động")).ToList();
             ViewBag.roomStatus = data.RoomStatus.ToList();
             return View(new Room());
         }
@@ -43,8 +44,8 @@ namespace HotelManagement.Areas.Admin.Controllers
         public ActionResult Update(int id)
         {
             var item = data.Rooms.FirstOrDefault(m => m.IDRoom == id);
-            ViewBag.roomType = data.RoomTypes.ToList();
-            ViewBag.cluster = data.Clusters.ToList();
+            ViewBag.roomType = data.RoomTypes.Where(m => m.StatusRoomType.StatusName.Equals("Hoạt Động")).ToList();
+            ViewBag.cluster = data.Clusters.Where(m => m.ClusterStatus.StatusName.Equals("Hoạt Động")).ToList();
             ViewBag.roomStatus = data.RoomStatus.ToList();
             return View(item);
         }
